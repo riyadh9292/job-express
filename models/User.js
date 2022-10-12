@@ -1,8 +1,16 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
+const { ObjectId } = mongoose.Schema.Types;
+
 const userSchema = mongoose.Schema(
   {
+    jobs: [
+      {
+        type: ObjectId,
+        ref: "Job",
+      },
+    ],
     email: {
       type: String,
       validate: [validator.isEmail, "Provide a valid email"],
