@@ -6,6 +6,7 @@ const {
   applySpecificJobService,
   updateSpecificJobService,
   jobDetailsService,
+  updateManagerAfterJobPosting,
 } = require("../services/jobs.service");
 
 exports.getAllJobs = async (req, res) => {
@@ -131,9 +132,15 @@ exports.applySpecificJob = async (req, res) => {
 exports.postAJob = async (req, res) => {
   try {
     const job = await postJobService(req.body);
+    const updateUser = await updateManagerAfterJobPosting(
+      job?.id,
+      req.user._id
+    );
     res.status(201).json({
       status: "success",
       message: "job post created.",
+      job: job,
+      updateUser: updateUser,
     });
   } catch (error) {
     console.log(error);

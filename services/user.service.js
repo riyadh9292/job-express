@@ -5,5 +5,5 @@ exports.signupService = async (userInfo) => {
   return user;
 };
 exports.findUserByEmailService = async (email) => {
-  return await User.findOne({ email });
+  return await User.findOne({ email }).populate("jobs");
 };

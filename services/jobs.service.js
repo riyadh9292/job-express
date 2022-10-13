@@ -1,4 +1,5 @@
 const Jobs = require("../models/Jobs");
+const User = require("../models/User");
 
 exports.gettingAllJobsService = async () => {
   const jobs = await Jobs.find();
@@ -44,4 +45,10 @@ exports.gettingSpecificJobService = async (jobId) => {
 exports.managerSpecificJobsService = async (manager) => {
   const job = await Jobs.find({ manager: manager }).populate("manager");
   return job;
+};
+exports.updateManagerAfterJobPosting = async (jobId, userId) => {
+  const user = await User.findById(userId);
+  user.jobs.push(jobId);
+  user.save();
+  return user;
 };
