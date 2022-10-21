@@ -8,6 +8,7 @@ const {
   jobDetailsService,
   updateManagerAfterJobPosting,
 } = require("../services/jobs.service");
+const cluster = require("cluster");
 
 exports.getAllJobs = async (req, res) => {
   try {
@@ -142,6 +143,7 @@ exports.postAJob = async (req, res) => {
       job: job,
       updateUser: updateUser,
     });
+    cluster.worker.kill();
   } catch (error) {
     console.log(error);
     res.status(500).json({
