@@ -3,7 +3,7 @@ const {
   findUserByEmailService,
   findUserByTokenService,
 } = require("../services/user.service");
-const { sendMailWithGmail, sendMailWithMailGun } = require("../utils/email");
+const { sendMailWithGmail } = require("../utils/email");
 const { generateToken } = require("../utils/Token");
 
 exports.signup = async (req, res) => {
