@@ -16,8 +16,14 @@ module.exports = router;
 
 router.post("/", verifyToken, verifyManager, postAJob);
 router.get("/", getAllJobs);
-router.post("/file-upload", uploader.single("resume"), fileUpload);
+
 router.get("/:id", getSpecificJob);
 router.patch("/:id", verifyToken, verifyManager, updateSpecificJob);
+router.post(
+  "/:id/file-upload",
+  verifyToken,
+  uploader.single("resume"),
+  fileUpload
+);
 router.post("/:id/apply", verifyToken, applySpecificJob);
 // router.route("/").post(postAJob);

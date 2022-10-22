@@ -17,6 +17,11 @@ const jobSchema = mongoose.Schema(
       minLength: [3, "Name at least 3 characters"],
       maxLength: [100, "Name at most 10000 characters"],
     },
+    listResume: [
+      {
+        type: String,
+      },
+    ],
     appliedCandidates: [
       {
         type: ObjectId,

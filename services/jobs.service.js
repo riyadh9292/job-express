@@ -52,3 +52,9 @@ exports.updateManagerAfterJobPosting = async (jobId, userId) => {
   user.save();
   return user;
 };
+exports.addResumeInJobs = async (jobId, resume) => {
+  const job = await Jobs.findById(jobId);
+  job.listResume.push(resume);
+  job.save();
+  return job;
+};
