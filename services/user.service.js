@@ -7,3 +7,6 @@ exports.signupService = async (userInfo) => {
 exports.findUserByEmailService = async (email) => {
   return await User.findOne({ email }).populate("jobs");
 };
+exports.findUserByTokenService = async (token) => {
+  return await User.findOne({ confirmationToken: token });
+};

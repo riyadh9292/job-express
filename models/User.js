@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
 const { ObjectId } = mongoose.Schema.Types;
+const crypto = require("crypto");
 
 const userSchema = mongoose.Schema(
   {
@@ -72,9 +73,11 @@ const userSchema = mongoose.Schema(
 
     status: {
       type: String,
-      default: "active",
+      default: "in-active",
       enum: ["active", "in-active", "blocked"],
     },
+    confirmationToken: String,
+    confirmationTokenExpires: Date,
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
@@ -90,6 +93,20 @@ userSchema.pre("save", function (next) {
   this.confirmPassword = undefined;
   next();
 });
+
+userSchema.methods.generateConfirmationToken = function () {
+  const token = crypto.randomBytes(32).toString("hex");
+
+  this.confirmationToken = token;
+
+  const date = new Date();
+
+  date.setDate(date.getDate() + 1);
+  this.confirmationTokenExpires = date;
+
+  return token;
+};
+
 userSchema.methods.comparePassword = function (pasword, hashPassword) {
   const isValid = bcrypt.compareSync(pasword, hashPassword);
   return isValid;
