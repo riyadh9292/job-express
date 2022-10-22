@@ -49,6 +49,7 @@ exports.login = async (req, res) => {
         error: "No user found.Please create an account first",
       });
     }
+    console.log(password, user.password);
     const isPasswordValid = user.comparePassword(password, user.password);
     if (!isPasswordValid) {
       return res.status(403).json({

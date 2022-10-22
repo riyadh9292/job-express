@@ -170,3 +170,9 @@ exports.getManagerSpecificJobController = async (req, res) => {
     });
   }
 };
+exports.fileUpload = async (req, res) => {
+  try {
+    console.log("req", req);
+    res.status(200).json(req.file);
+  } catch (error) {}
+};

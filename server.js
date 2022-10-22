@@ -25,9 +25,9 @@ app.get("/", (req, res, next) => {
 
 // server
 const port = process.env.PORT || 5000;
-app.listen(port, () => {
-  console.log(`process ${process.pid} running`.yellow.bold);
-});
+// app.listen(port, () => {
+//   console.log(`process ${process.pid} running`.yellow.bold);
+// });
 
 if (cluster.isMaster) {
   console.log(`Master worker`);
