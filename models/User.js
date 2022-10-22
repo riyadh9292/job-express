@@ -87,10 +87,15 @@ const userSchema = mongoose.Schema(
   }
 );
 userSchema.pre("save", function (next) {
-  const password = this.password;
-  const hashedPassword = bcrypt.hashSync(password);
-  this.password = hashedPassword;
-  this.confirmPassword = undefined;
+  if (this.isNew) {
+    const password = this.password;
+    console.log("presave", password);
+    const hashedPassword = bcrypt.hashSync(password, 2);
+    console.log("aftersave", hashedPassword);
+    this.password = hashedPassword;
+    this.confirmPassword = undefined;
+  }
+
   next();
 });
 
@@ -109,7 +114,7 @@ userSchema.methods.generateConfirmationToken = function () {
 
 userSchema.methods.comparePassword = function (pasword, hashPassword) {
   const isValid = bcrypt.compareSync(pasword, hashPassword);
-  console.log(isValid);
+  console.log("lll", isValid);
   return isValid;
 };
 
