@@ -174,8 +174,13 @@ exports.getManagerSpecificJobController = async (req, res) => {
 exports.fileUpload = async (req, res) => {
   try {
     const { id: jobId } = req.params;
-    const updatedJob = await addResumeInJobs(jobId, req.file.filename);
-    console.log("req", req);
+    console.log(req.file);
+    const updatedJob = await addResumeInJobs(
+      jobId,
+      req.file.filename,
+      req.file.path
+    );
+
     res.status(200).json({ status: "resume uploaded", updatedJob });
   } catch (error) {
     res.status(400).json({ status: "fail", message: "resume not uploaded" });

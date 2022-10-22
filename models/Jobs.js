@@ -19,7 +19,8 @@ const jobSchema = mongoose.Schema(
     },
     listResume: [
       {
-        type: String,
+        name: String,
+        path: String,
       },
     ],
     appliedCandidates: [
